@@ -85,7 +85,7 @@ function Child() {
 }
 // Child.prototype = Parent.prototype
 Child.prototype = Object.create(Parent.prototype) // 浅拷贝使Child原型与Parent原型不指向同一个对象
-Child.prototype.constructor = Child
+Child.prototype.constructor = Child // 将构造函数链接Child上，防止某些特殊情况调用错误
 Child.prototype.getName = function() {
   return this.name
 }
