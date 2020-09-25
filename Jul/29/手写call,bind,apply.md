@@ -14,7 +14,7 @@
 function.prototype.myCall = function(thisArg, ...args) {
   const fn = Symbol('fn') // 声明一个独有的Symbol属性，防止fn覆盖已有属性
   thisArg = thisArg || window // 若没有传入this，默认绑定window
-  thisArg[fn] = this // this指向调用call的对象
+  thisArg[fn] = this // 这里this就是要调用的函数，在thisArg上扩展这个方法
   const result = thisArg[fn](...args)
   delete thisArg[fn] // 删除声明的fn属性
   return result

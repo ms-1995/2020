@@ -78,10 +78,25 @@ Vue.directive("loading", {
    * @param {*} el 指令要绑定的元素
    * @param {*} binding 指令传入的信息，包括 {name:'指令名称', value: '指令绑定的值',arg: '指令参数 v-bind:text 对应 text'}
    */
-  bind(el, binding) {},
-  update(el, binding) {},
-  unbind(el, binding) {},
+   // 钩子函数
+  bind(el, binding) {}, // 只调用一次，指令第一次绑定到元素时调用。在这里可以进行一次性的初始化设置。
+  inserted(el, binding) {}, // 被绑定元素插入父节点时调用 (仅保证父节点存在，但不一定已被插入文档中)。
+  update(el, binding) {}, // 所在组件的 VNode 更新时调用，但是可能发生在其子 VNode 更新之前。
+  componentUpdated(el, binding){}, // 指令所在组件的 VNode 及其子 VNode 全部更新后调用。
+  unbind(el, binding) {}, // 只调用一次，指令与元素解绑时调用。
 });
+
+```
+
+```js
+// <input v-focus>
+Vue.directive('focus', {
+  // 当被绑定的元素插入到 DOM 中时……
+  inserted: function (el) {
+    // 聚焦元素
+    el.focus()
+  }
+})
 ```
 
 ### watch

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <script type="module">
+    import {
+        defineComponent,
+        reactive,
+        html,
+        onMounted
+      } from 'https://unpkg.com/@vue/lit@0.0.2';
+  
+      defineComponent('my-component', () => {
+        const state = reactive({
+          text: 'this is my-component',
+          id: 0
+        });
+        
+        function onClick() {
+          state.id += 1;
+        }
+  
+        onMounted(() => {
+          console.log('mounted');
+        });
+  
+        return () => html`
+          <p>
+            <button @click=${onClick}>Click me</button>
+            ${state.text + state.id}
+          </p>
+        `;
+      })
+    </script>
+</head>
+
+<body>
+  <div>
+    <my-component />
+  </div>
+  <div>
+    <my-component />
+  </div>
+</body>
+
+</html>
