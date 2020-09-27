@@ -46,29 +46,41 @@ setup(props, context){
 }
 ```
 
-- demo
+- hook
 
 ```vue
 <template>
   <div>{{ text }} {{ object.count }}</div>
+  <p>{{ getValue }}</p>
   <button @click="text += 1">change text</button>
   <button @click="object.count += 1">change count</button>
 </template>
 <script>
-import { ref, reactive } from "vue";
+import { ref, reactive, computed } from "vue";
 
 export default {
   props: {
     name: String,
   },
   setup(props) {
-    const text = ref(props.msg);
-    const object = reactive({ count: 1 });
+    const { text, object, getValue } = useHookData(props.name);
     return {
       text,
       object,
+      getValue,
     };
   },
 };
+
+function useHookData(msg) { // 用于hook的方法前面加use区分
+  const text = ref(msg);
+  const object = reactive({ count: 1 });
+  const getValue = computed(() => (object.count += 1));
+  return {
+    text,
+    object,
+    getValue,
+  };
+}
 </script>
 ```
